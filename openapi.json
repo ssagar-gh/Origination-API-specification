@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Lending Experience Loans API",
-    "description": "OpenAPI description of the lending-experience loan application resources exposed by the Django REST Framework application. Generated from the staging source at commit ca267f4d7dd3d8a66b3bc23393ca3f8a26f284c6.",
+    "description": "OpenAPI description of the lending-experience loan application resources.",
     "version": "1.0.0",
     "contact": {}
   },
@@ -168,7 +168,7 @@
           "Loan Applications"
         ],
         "summary": "List loan applications",
-        "description": "Returns a limit/offset-paginated collection filtered by the configured LoanAppFilter and ordering backend.",
+        "description": "Returns a limit/offset-paginated collection of loan applications. Results can be filtered by state and other supported query parameters.",
         "operationId": "listLoanApps",
         "parameters": [
           {
@@ -3848,7 +3848,7 @@
           "Validation"
         ],
         "summary": "List displayed validation failure fields",
-        "description": "Returns displayed validation failure fields visible to the requested parent object. parent_object_id and parent_object_model are required by the view. When the permission function denies access, the endpoint intentionally returns an empty paginated result rather than an error. django-filter also supports filtering by dismissal state.",
+        "description": "Returns displayed validation failure fields visible to the requested parent object. parent_object_id and parent_object_model are required by the view. When the permission function denies access, the endpoint intentionally returns an empty paginated result rather than an error. Filtering by dismissal state is also supported.",
         "parameters": [
           {
             "$ref": "#/components/parameters/1.0.0_ParentObjectId"
@@ -3917,7 +3917,7 @@
         "type": "apiKey",
         "in": "cookie",
         "name": "sessionid",
-        "description": "Django session authentication cookie. SessionAuthentication also applies CSRF protection to unsafe requests."
+        "description": "Session cookie required for authenticated API access. Unsafe (state-changing) requests must also include the anti-CSRF token header."
       },
       "1.0.0_authenticatedSession": {
         "type": "apiKey",
@@ -4001,7 +4001,7 @@
         "schema": {
           "type": "string"
         },
-        "description": "Loan application state filter; additional LoanAppFilter fields are implementation-defined in the filter module."
+        "description": "Filter loan applications by state. Additional filter fields may be supported; see the API reference for available options."
       },
       "1.0.0_ResourceId": {
         "name": "id",
@@ -4017,7 +4017,7 @@
         "name": "X-CSRFToken",
         "in": "header",
         "required": false,
-        "description": "Required by Django CSRF protection for session-authenticated unsafe requests.",
+        "description": "Anti-CSRF security token required for session-authenticated requests that change data.",
         "schema": {
           "type": "string"
         }
@@ -4172,7 +4172,7 @@
         "name": "parent_object_model",
         "in": "query",
         "required": true,
-        "description": "Django content-type model in app_label.ModelName form.",
+        "description": "Content-type model identifier in app_label.ModelName form.",
         "schema": {
           "type": "string",
           "minLength": 1
@@ -6129,9 +6129,9 @@
           },
           "rate_percent": {
             "type": "number",
-            "minimum": 0.000001,
+            "minimum": 1e-06,
             "maximum": 100,
-            "multipleOf": 0.000001,
+            "multipleOf": 1e-06,
             "nullable": true,
             "readOnly": true,
             "description": "Rate expressed as a percentage."
@@ -7102,7 +7102,7 @@
           "parent_object_model": {
             "type": "string",
             "minLength": 1,
-            "description": "Django content-type model in app_label.ModelName form."
+            "description": "Content-type model identifier in app_label.ModelName form."
           },
           "changed": {
             "type": "array",
