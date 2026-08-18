@@ -348,90 +348,6 @@
         ]
       }
     },
-    "/loan-apps/{id}/recommend-approval/": {
-      "servers": [
-        {
-          "url": "https://developer.sba.gov/origination/api/v1",
-          "description": "TBD deployment URL; the implementation uses an environment-provided host."
-        }
-      ],
-      "post": {
-        "tags": [
-          "Loan Applications"
-        ],
-        "summary": "Recommend approval",
-        "operationId": "recommendLoanAppApproval",
-        "responses": {
-          "200": {
-            "description": "Approval recommendation recorded."
-          },
-          "400": {
-            "$ref": "#/components/responses/1.0.0_ValidationError"
-          },
-          "401": {
-            "$ref": "#/components/responses/1.0.0_Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/1.0.0_Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/1.0.0_NotFound"
-          }
-        },
-        "security": [
-          {
-            "1.0.0_sessionCookie": []
-          }
-        ]
-      }
-    },
-    "/loan-apps/{id}/recommend-rejection/": {
-      "servers": [
-        {
-          "url": "https://developer.sba.gov/origination/api/v1",
-          "description": "TBD deployment URL; the implementation uses an environment-provided host."
-        }
-      ],
-      "post": {
-        "tags": [
-          "Loan Applications"
-        ],
-        "summary": "Recommend rejection",
-        "operationId": "recommendLoanAppRejection",
-        "requestBody": {
-          "required": false,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/1.0.0_RecommendationRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Rejection recommendation recorded."
-          },
-          "400": {
-            "$ref": "#/components/responses/1.0.0_ValidationError"
-          },
-          "401": {
-            "$ref": "#/components/responses/1.0.0_Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/1.0.0_Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/1.0.0_NotFound"
-          }
-        },
-        "security": [
-          {
-            "1.0.0_sessionCookie": []
-          }
-        ]
-      }
-    },
     "/loan-apps/{id}/submit/": {
       "servers": [
         {
@@ -448,90 +364,6 @@
         "responses": {
           "200": {
             "description": "Loan application submitted."
-          },
-          "400": {
-            "$ref": "#/components/responses/1.0.0_ValidationError"
-          },
-          "401": {
-            "$ref": "#/components/responses/1.0.0_Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/1.0.0_Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/1.0.0_NotFound"
-          }
-        },
-        "security": [
-          {
-            "1.0.0_sessionCookie": []
-          }
-        ]
-      }
-    },
-    "/loan-apps/{id}/decline/": {
-      "servers": [
-        {
-          "url": "https://developer.sba.gov/origination/api/v1",
-          "description": "TBD deployment URL; the implementation uses an environment-provided host."
-        }
-      ],
-      "post": {
-        "tags": [
-          "Loan Applications"
-        ],
-        "summary": "Decline a loan application",
-        "operationId": "declineLoanApp",
-        "requestBody": {
-          "required": false,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/1.0.0_RecommendationRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Loan application declined."
-          },
-          "400": {
-            "$ref": "#/components/responses/1.0.0_ValidationError"
-          },
-          "401": {
-            "$ref": "#/components/responses/1.0.0_Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/1.0.0_Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/1.0.0_NotFound"
-          }
-        },
-        "security": [
-          {
-            "1.0.0_sessionCookie": []
-          }
-        ]
-      }
-    },
-    "/loan-apps/{id}/approve/": {
-      "servers": [
-        {
-          "url": "https://developer.sba.gov/origination/api/v1",
-          "description": "TBD deployment URL; the implementation uses an environment-provided host."
-        }
-      ],
-      "post": {
-        "tags": [
-          "Loan Applications"
-        ],
-        "summary": "Approve a loan application",
-        "operationId": "approveLoanApp",
-        "responses": {
-          "200": {
-            "description": "Loan application approved."
           },
           "400": {
             "$ref": "#/components/responses/1.0.0_ValidationError"
@@ -3911,6 +3743,176 @@
       }
     }
   },
+  "x-disabled-paths": {
+    "/loan-apps/{id}/recommend-approval/": {
+      "servers": [
+        {
+          "url": "https://developer.sba.gov/origination/api/v1",
+          "description": "TBD deployment URL; the implementation uses an environment-provided host."
+        }
+      ],
+      "post": {
+        "tags": [
+          "Loan Applications"
+        ],
+        "summary": "Recommend approval",
+        "operationId": "recommendLoanAppApproval",
+        "responses": {
+          "200": {
+            "description": "Approval recommendation recorded."
+          },
+          "400": {
+            "$ref": "#/components/responses/1.0.0_ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/1.0.0_Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/1.0.0_Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/1.0.0_NotFound"
+          }
+        },
+        "security": [
+          {
+            "1.0.0_sessionCookie": []
+          }
+        ]
+      }
+    },
+    "/loan-apps/{id}/recommend-rejection/": {
+      "servers": [
+        {
+          "url": "https://developer.sba.gov/origination/api/v1",
+          "description": "TBD deployment URL; the implementation uses an environment-provided host."
+        }
+      ],
+      "post": {
+        "tags": [
+          "Loan Applications"
+        ],
+        "summary": "Recommend rejection",
+        "operationId": "recommendLoanAppRejection",
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/1.0.0_RecommendationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Rejection recommendation recorded."
+          },
+          "400": {
+            "$ref": "#/components/responses/1.0.0_ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/1.0.0_Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/1.0.0_Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/1.0.0_NotFound"
+          }
+        },
+        "security": [
+          {
+            "1.0.0_sessionCookie": []
+          }
+        ]
+      }
+    },
+    "/loan-apps/{id}/decline/": {
+      "servers": [
+        {
+          "url": "https://developer.sba.gov/origination/api/v1",
+          "description": "TBD deployment URL; the implementation uses an environment-provided host."
+        }
+      ],
+      "post": {
+        "tags": [
+          "Loan Applications"
+        ],
+        "summary": "Decline a loan application",
+        "operationId": "declineLoanApp",
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/1.0.0_RecommendationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Loan application declined."
+          },
+          "400": {
+            "$ref": "#/components/responses/1.0.0_ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/1.0.0_Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/1.0.0_Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/1.0.0_NotFound"
+          }
+        },
+        "security": [
+          {
+            "1.0.0_sessionCookie": []
+          }
+        ]
+      }
+    },
+    "/loan-apps/{id}/approve/": {
+      "servers": [
+        {
+          "url": "https://developer.sba.gov/origination/api/v1",
+          "description": "TBD deployment URL; the implementation uses an environment-provided host."
+        }
+      ],
+      "post": {
+        "tags": [
+          "Loan Applications"
+        ],
+        "summary": "Approve a loan application",
+        "operationId": "approveLoanApp",
+        "responses": {
+          "200": {
+            "description": "Loan application approved."
+          },
+          "400": {
+            "$ref": "#/components/responses/1.0.0_ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/1.0.0_Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/1.0.0_Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/1.0.0_NotFound"
+          }
+        },
+        "security": [
+          {
+            "1.0.0_sessionCookie": []
+          }
+        ]
+      }
+    }
+  },
   "components": {
     "securitySchemes": {
       "1.0.0_sessionCookie": {
@@ -6129,9 +6131,9 @@
           },
           "rate_percent": {
             "type": "number",
-            "minimum": 0.000001,
+            "minimum": 1e-06,
             "maximum": 100,
-            "multipleOf": 0.000001,
+            "multipleOf": 1e-06,
             "nullable": true,
             "readOnly": true,
             "description": "Rate expressed as a percentage."
