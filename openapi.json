@@ -345,7 +345,8 @@
           {
             "1.0.0_sessionCookie": []
           }
-        ]
+        ],
+        "description": "Partially updates the writable fields of an existing loan application. Only supplied fields are modified; omitted fields retain their current values."
       }
     },
     "/loan-apps/{id}/recommend-approval/": {
@@ -382,8 +383,14 @@
           {
             "1.0.0_sessionCookie": []
           }
-        ]
-      }
+        ],
+        "description": "Records an approval recommendation for the loan application. Transitions the application to the recommended-for-approval state."
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/1.0.0_ResourceId"
+        }
+      ]
     },
     "/loan-apps/{id}/recommend-rejection/": {
       "servers": [
@@ -429,8 +436,14 @@
           {
             "1.0.0_sessionCookie": []
           }
-        ]
-      }
+        ],
+        "description": "Records a rejection recommendation for the loan application. An optional notes field may be supplied in the request body."
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/1.0.0_ResourceId"
+        }
+      ]
     },
     "/loan-apps/{id}/submit/": {
       "servers": [
@@ -466,8 +479,14 @@
           {
             "1.0.0_sessionCookie": []
           }
-        ]
-      }
+        ],
+        "description": "Submits the loan application for review. The application must pass all validation checks before submission is accepted."
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/1.0.0_ResourceId"
+        }
+      ]
     },
     "/loan-apps/{id}/decline/": {
       "servers": [
@@ -513,8 +532,14 @@
           {
             "1.0.0_sessionCookie": []
           }
-        ]
-      }
+        ],
+        "description": "Declines the loan application. An optional notes field may be supplied in the request body."
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/1.0.0_ResourceId"
+        }
+      ]
     },
     "/loan-apps/{id}/approve/": {
       "servers": [
@@ -550,8 +575,14 @@
           {
             "1.0.0_sessionCookie": []
           }
-        ]
-      }
+        ],
+        "description": "Approves the loan application, transitioning it to the approved state."
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/1.0.0_ResourceId"
+        }
+      ]
     },
     "/loan-apps/{id}/send-lender-requests/": {
       "servers": [
@@ -587,8 +618,14 @@
           {
             "1.0.0_sessionCookie": []
           }
-        ]
-      }
+        ],
+        "description": "Sends all pending lender information requests associated with the loan application."
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/1.0.0_ResourceId"
+        }
+      ]
     },
     "/loan-apps/{id}/associated-documents/": {
       "servers": [
@@ -724,6 +761,9 @@
           },
           "404": {
             "$ref": "#/components/responses/1.0.0_NotFound"
+          },
+          "400": {
+            "$ref": "#/components/responses/1.0.0_ValidationError"
           }
         },
         "security": [
@@ -731,7 +771,12 @@
             "1.0.0_sessionCookie": []
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/1.0.0_ResourceId"
+        }
+      ]
     },
     "/loan-app-agents/": {
       "servers": [
@@ -2832,7 +2877,8 @@
           {
             "1.0.0_sessionCookie": []
           }
-        ]
+        ],
+        "description": "Adds a business entity to a lending application. Returns the created business resource."
       }
     },
     "/loan-app-persons/": {
@@ -2882,7 +2928,8 @@
           {
             "1.0.0_sessionCookie": []
           }
-        ]
+        ],
+        "description": "Adds an individual to a lending application. Returns the created individual resource."
       }
     },
     "/company-to-person-ownership-snapshots/": {
@@ -2920,13 +2967,20 @@
           },
           "400": {
             "$ref": "#/components/responses/1.0.0_InvalidRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/1.0.0_Unauthenticated"
+          },
+          "403": {
+            "$ref": "#/components/responses/1.0.0_AccessDenied"
           }
         },
         "security": [
           {
             "1.0.0_sessionCookie": []
           }
-        ]
+        ],
+        "description": "Records an individual's ownership of a business associated with a lending application."
       }
     },
     "/company-to-company-ownership-snapshots/": {
@@ -2964,13 +3018,20 @@
           },
           "400": {
             "$ref": "#/components/responses/1.0.0_InvalidRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/1.0.0_Unauthenticated"
+          },
+          "403": {
+            "$ref": "#/components/responses/1.0.0_AccessDenied"
           }
         },
         "security": [
           {
             "1.0.0_sessionCookie": []
           }
-        ]
+        ],
+        "description": "Records a business-to-business ownership relationship associated with a lending application."
       }
     },
     "/loan-app-company-eligibilities/": {
@@ -3011,13 +3072,20 @@
           },
           "404": {
             "$ref": "#/components/responses/1.0.0_NotFound"
+          },
+          "401": {
+            "$ref": "#/components/responses/1.0.0_Unauthenticated"
+          },
+          "403": {
+            "$ref": "#/components/responses/1.0.0_AccessDenied"
           }
         },
         "security": [
           {
             "1.0.0_sessionCookie": []
           }
-        ]
+        ],
+        "description": "Creates or updates the eligibility assessment for a business associated with a loan application. If an assessment already exists for the business, it is replaced."
       }
     },
     "/api/v1/agents/": {
@@ -7249,7 +7317,8 @@
               }
             }
           }
-        }
+        },
+        "description": "Returns a paginated list of project details records for loan applications."
       },
       "1.0.0_createLoanAppProjectDetails": {
         "tags": [
@@ -7277,8 +7346,18 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/1.0.0_InvalidRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/1.0.0_Unauthenticated"
+          },
+          "403": {
+            "$ref": "#/components/responses/1.0.0_AccessDenied"
           }
-        }
+        },
+        "description": "Creates project details for a loan application."
       },
       "1.0.0_getLoanAppProjectDetails": {
         "tags": [
@@ -7297,7 +7376,8 @@
               }
             }
           }
-        }
+        },
+        "description": "Returns the project details record for the specified loan application."
       },
       "1.0.0_patchLoanAppProjectDetails": {
         "tags": [
@@ -7325,8 +7405,21 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/1.0.0_InvalidRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/1.0.0_Unauthenticated"
+          },
+          "403": {
+            "$ref": "#/components/responses/1.0.0_AccessDenied"
+          },
+          "404": {
+            "$ref": "#/components/responses/1.0.0_NotFound"
           }
-        }
+        },
+        "description": "Partially updates the project details for a loan application."
       },
       "1.0.0_listGenericResource": {
         "tags": [
@@ -7356,7 +7449,8 @@
               }
             }
           }
-        }
+        },
+        "description": "Returns a paginated list of resources associated with the loan application."
       },
       "1.0.0_createGenericResource": {
         "tags": [
@@ -7384,8 +7478,18 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/1.0.0_InvalidRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/1.0.0_Unauthenticated"
+          },
+          "403": {
+            "$ref": "#/components/responses/1.0.0_AccessDenied"
           }
-        }
+        },
+        "description": "Creates a new resource associated with a loan application. Returns the created resource."
       },
       "1.0.0_getGenericResource": {
         "tags": [
@@ -7404,7 +7508,8 @@
               }
             }
           }
-        }
+        },
+        "description": "Returns the specified resource by its numeric identifier."
       },
       "1.0.0_patchGenericResource": {
         "tags": [
@@ -7432,8 +7537,21 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/1.0.0_InvalidRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/1.0.0_Unauthenticated"
+          },
+          "403": {
+            "$ref": "#/components/responses/1.0.0_AccessDenied"
+          },
+          "404": {
+            "$ref": "#/components/responses/1.0.0_NotFound"
           }
-        }
+        },
+        "description": "Partially updates the specified resource. Only supplied fields are modified."
       },
       "1.0.0_deleteGenericResource": {
         "tags": [
@@ -7445,7 +7563,8 @@
           "204": {
             "description": "Resource deleted successfully"
           }
-        }
+        },
+        "description": "Deletes the specified resource."
       }
     }
   },
