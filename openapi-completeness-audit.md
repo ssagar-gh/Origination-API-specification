@@ -17,9 +17,11 @@ specification inline and renders all 101 operations.
 
 The brief asked for the specification to be diffed against the implementation in
 `USSBA/ocio-gh-lending-mono` (path `lender_experience/backend/lx_src/`, branch `staging`).
-**That repository could not be read from this environment.** Every attempt returned
+**That repository could not be read from this environment in either run.** Both attempts returned
 `404 Not Found`, and direct network access to `api.github.com` is blocked by the environment
 proxy, so there was no alternative route to the code.
+
+### Run 1 (PR #5 initial pass)
 
 | Attempt | Target | Result |
 | --- | --- | --- |
@@ -32,9 +34,21 @@ proxy, so there was no alternative route to the code.
 | Control test (private cross-repository read) | `USSBA/ocio-gh-lending-components` → `/` | `404 Not Found` |
 | Direct HTTPS | `https://api.github.com/repos/USSBA/ocio-gh-lending-mono` | `403 Blocked by DNS monitoring proxy` |
 
+### Run 2 (PR #5 follow-up re-verification attempt — 2026-08-20)
+
+| Attempt | Target | Result |
+| --- | --- | --- |
+| Read directory | `USSBA/ocio-gh-lending-mono` → `lender_experience/backend/lx_src/views` (ref `staging`) | `404 Not Found` — `failed to resolve git reference: could not resolve ref "staging" as a branch or a tag` |
+| Read repository metadata | `USSBA/ocio-gh-lending-mono` → `/` (default ref) | `404 Not Found` — `failed to get repository info: GET https://api.github.com/repos/USSBA/ocio-gh-lending-mono: 404 Not Found []` |
+
+**Both runs confirm:** the GitHub API returns `404 Not Found` for every request to
+`USSBA/ocio-gh-lending-mono`. The repository is either private and the agent's credentials have
+not been granted collaborator access, or the repository name/organization is incorrect. This is an
+**access/permissions issue that must be escalated**.
+
 **Consequence:** this pass could not verify the specification field-by-field against the code, and
-therefore did **not** add or remove endpoints, fields, or behaviour. What it did do is audit and
-correct the specification itself against the evidence that was available:
+therefore did **not** add or remove endpoints, fields, or behaviour. What it did do in run 1 is
+audit and correct the specification itself against the evidence that was available:
 
 1. The previous `openapi.json`, whose own metadata recorded that it was generated from the
    `staging` source at commit `ca267f4d7dd3d8a66b3bc23393ca3f8a26f284c6`, including content that had
@@ -43,8 +57,10 @@ correct the specification itself against the evidence that was available:
 2. The behaviour of the state-transition actions, the decline payload, and the error shapes as set
    out in the task brief.
 
-Everything that still requires the code to confirm is listed in sections 6 and 8. A follow-up run
-with read access to `USSBA/ocio-gh-lending-mono` is required to close those items.
+Everything that still requires the code to confirm is listed in sections 6 and 8. **All corrections
+in this PR remain unverified against the Django source code and should be treated as best-effort
+pending source access.** A follow-up run with confirmed read access to `USSBA/ocio-gh-lending-mono`
+is required to close those items. This PR should **not** be treated as fully verified.
 
 ---
 
@@ -298,7 +314,10 @@ network access and no separate spec file.
 ## 8. Items needing confirmation from the implementation team
 
 1. **Grant read access to `USSBA/ocio-gh-lending-mono`** so the specification can be diffed against
-   `lender_experience/backend/lx_src/`. Until then the items below cannot be closed.
+   `lender_experience/backend/lx_src/`. Both automated runs returned `404 Not Found` — the
+   repository must be made accessible to the agent's GitHub credentials (e.g. by adding the Copilot
+   app as a collaborator or changing visibility). Until access is confirmed, the items below cannot
+   be closed and all corrections in this PR remain best-effort and unverified.
 2. Field lists and validation rules for the sixteen collections listed in §6.1.
 3. Query parameters for every list endpoint: filter names and types, ordering fields, and search
    fields. Only `limit`, `offset`, `ordering`, `optional_fields`, and `state` are documented today.
