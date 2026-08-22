@@ -692,12 +692,25 @@
             "sessionCookie": []
           }
         ],
-        "description": "Submits a completed loan application for review. The application moves to review, or directly to approved when the lender holds delegated authority. No request body is required.",
+        "description": "Submits a completed loan application for review. The application moves to review, or directly to approved when the lender holds delegated authority. No request body fields are required \u2014 send an empty JSON object or omit the body.",
         "parameters": [
           {
             "$ref": "#/components/parameters/CsrfToken"
           }
-        ]
+        ],
+        "requestBody": {
+          "required": false,
+          "description": "No fields are required. Send an empty object or omit the body entirely.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false
+              },
+              "example": {}
+            }
+          }
+        }
       },
       "parameters": [
         {
